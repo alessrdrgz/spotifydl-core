@@ -1,4 +1,6 @@
 export interface ITrack {
+    id: string
+    url: string
     name: string
     artists: string[]
     album_name: string

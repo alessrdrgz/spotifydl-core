@@ -49,6 +49,9 @@ export default class SpotifyApi {
         details.album_name = data.album.name
         details.release_date = data.album.release_date
         details.cover_url = data.album.images[0].url
+        details.id = data.id
+        const [, type, id] = data.uri.split(':')
+        details.url = `https://open.spotify.com/${type}/${id}`
         return details
     }
 

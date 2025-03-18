@@ -1,9 +1,9 @@
-import os from 'os'
-import ytdl from 'ytdl-core'
-import SpotifyDlError from './Error'
-import { readFile, unlink, writeFile } from 'fs-extra'
+import ytdl from '@distube/ytdl-core'
 import axios from 'axios'
 import Ffmpeg from 'fluent-ffmpeg'
+import { readFile, unlink, writeFile } from 'fs-extra'
+import os from 'os'
+import SpotifyDlError from './Error'
 
 /**
  * Function to download the give `YTURL`
@@ -40,7 +40,7 @@ export const downloadYT = async (url: string): Promise<Buffer> => {
 export const downloadYTAndSave = async (url: string, filename = (Math.random() + 1).toString(36).substring(7) + '.mp3'): Promise<string> => {
     const audio = await downloadYT(url)
     try {
-        await writeFile(filename, audio)
+        await writeFile(filename, new Uint8Array(audio))
         return filename
     } catch (err) {
         throw new SpotifyDlError(`Error While writing to File: ${filename}`)
